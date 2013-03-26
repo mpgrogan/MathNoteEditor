@@ -1,5 +1,6 @@
 package mathNoteEditor.pack;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JToolBar;
@@ -23,26 +24,29 @@ public class MathNoteEditorGUI extends DrawApplication {
 	/**
 	 * @param args
 	 */
+	static Color DEFAULT_SHAPE_COLOR = new Color(255, 255, 255, 0);
 	
 	public MathNoteEditorGUI() {
-		super("Tool test");
+		super("MNE");
 	}
 	
+	public Color getDefaultShapeColor() {
+		return DEFAULT_SHAPE_COLOR;
+	}
 	
 	@Override
 	protected void createTools(JToolBar palette) {
 		super.createTools(palette);
-		Tool triangleTool = new CreationTool(this, new TriangleFigure());
-		Tool ellipseTool = new CreationTool(this, new EllipseFigure());
+		Tool triangleTool = new CreationTool(this, new Triangle(this));
+		Tool ellipseTool = new CreationTool(this, new Ellipse(this));
 		Tool lineTool = new CreationTool(this, new LineFigure());
-		AbstractLineDecoration arrowTip = new ArrowTip();
 		
 		palette.add(createToolButton(IMAGES + "TRIANGLE", "Triangle Tool", triangleTool));
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", ellipseTool));
 		palette.add(createToolButton(IMAGES + "LINE", "Line Tool", lineTool));
-		//arrowTip.draw(lineTool, x1, y1, x2, y2)
+			
 	}
-	
+	/*Stop that annoying tool done message*/
 	@Override
 	public void toolDone() {
 		
@@ -50,6 +54,9 @@ public class MathNoteEditorGUI extends DrawApplication {
 	
 	public static void main(String[] args) {
 		DrawApplication window = new MathNoteEditorGUI();
+		window.setBackground(Color.black);
 		window.open();
+		window.resize(1200, 800);
+		System.out.println(window.getBackground());
 	}
 }
