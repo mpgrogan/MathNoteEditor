@@ -6,18 +6,22 @@ import java.awt.Graphics;
 import javax.swing.JToolBar;
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.contrib.TriangleFigure;
+import org.jhotdraw.contrib.html.HTMLTextAreaFigure;
+import org.jhotdraw.contrib.html.HTMLTextAreaTool;
 import org.jhotdraw.contrib.zoom.ZoomDrawingView;
 import org.jhotdraw.figures.AbstractLineDecoration;
 import org.jhotdraw.figures.ArrowTip;
 import org.jhotdraw.figures.ConnectedTextTool;
 import org.jhotdraw.figures.EllipseFigure;
 import org.jhotdraw.figures.LineFigure;
+import org.jhotdraw.figures.NumberTextFigure;
 import org.jhotdraw.figures.TextFigure;
 import org.jhotdraw.framework.Drawing;
 import org.jhotdraw.framework.DrawingView;
 import org.jhotdraw.framework.Tool;
 import org.jhotdraw.samples.javadraw.JavaDrawApp;
 import org.jhotdraw.standard.CreationTool;
+import org.jhotdraw.util.FloatingTextField;
 
 public class MathNoteEditorGUI extends DrawApplication {
 
@@ -44,7 +48,12 @@ public class MathNoteEditorGUI extends DrawApplication {
 		palette.add(createToolButton(IMAGES + "TRIANGLE", "Triangle Tool", triangleTool));
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", ellipseTool));
 		palette.add(createToolButton(IMAGES + "LINE", "Line Tool", lineTool));
-			
+		
+		Tool tool = new ConnectedTextTool(this, new TextFigure());
+		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
+		
+		tool = new ConnectedTextTool(this, new NumberTextFigure());
+		palette.add(createToolButton(IMAGES + "NUMBERTEXTFIGURE", "Number Tool", tool));
 	}
 	/*Stop that annoying tool done message*/
 	@Override
@@ -54,9 +63,9 @@ public class MathNoteEditorGUI extends DrawApplication {
 	
 	public static void main(String[] args) {
 		DrawApplication window = new MathNoteEditorGUI();
-		window.setBackground(Color.black);
+		window.setBackground(Color.white);
 		window.open();
-		window.resize(1200, 800);
+		window.resize(1200, 700);
 		System.out.println(window.getBackground());
 	}
 }
