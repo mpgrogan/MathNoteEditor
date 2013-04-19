@@ -3,8 +3,13 @@ package mathNoteEditor.pack;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.List;
 
 import org.jhotdraw.figures.PolyLineFigure;
+import org.jhotdraw.framework.HandleEnumeration;
+import org.jhotdraw.standard.BoxHandleKit;
+import org.jhotdraw.standard.HandleEnumerator;
+import org.jhotdraw.util.CollectionsFactory;
 
 public class SimpleGraph extends PolyLineFigure{
 
@@ -60,5 +65,7 @@ public class SimpleGraph extends PolyLineFigure{
 	public void basicDisplayBox(Point origin, Point corner) {
 		setPoints(origin, new Point(origin.x, corner.y), corner);
 	}
+	
+	
 
 }

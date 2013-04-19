@@ -4,16 +4,21 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.contrib.MDI_DrawApplication;
+import org.jhotdraw.contrib.TextAreaFigure;
 import org.jhotdraw.contrib.TriangleFigure;
 import org.jhotdraw.contrib.html.HTMLTextAreaFigure;
 import org.jhotdraw.contrib.html.HTMLTextAreaTool;
@@ -28,6 +33,7 @@ import org.jhotdraw.figures.PolyLineFigure;
 import org.jhotdraw.figures.RectangleFigure;
 import org.jhotdraw.figures.ScribbleTool;
 import org.jhotdraw.figures.TextFigure;
+import org.jhotdraw.figures.TextTool;
 import org.jhotdraw.framework.Drawing;
 import org.jhotdraw.framework.DrawingView;
 import org.jhotdraw.framework.FigureAttributeConstant;
@@ -40,7 +46,7 @@ import org.jhotdraw.util.FloatingTextField;
 import org.jhotdraw.util.PaletteButton;
 import org.jhotdraw.util.UndoableTool;
 
-public class MathNoteEditorGUI extends DrawApplication {
+public class MathNoteEditorGUI extends MDI_DrawApplication {
 
 	/**
 	 * @param args
@@ -70,15 +76,18 @@ public class MathNoteEditorGUI extends DrawApplication {
 		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", rectTool));
 		palette.add(createToolButton(IMAGES + "LINE", "Line Tool", lineTool));
 		
-		Tool tool = new ConnectedTextTool(this, new TextFigure());
+		Tool tool = new TextTool(this, new Text());
 		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
 		
-		tool = new ConnectedTextTool(this, new NumberTextFigure());
-		palette.add(createToolButton(IMAGES + "NUMBERTEXTFIGURE", "Number Tool", tool));
+		tool = new TextTool(this, new Number());
+		palette.add(createToolButton(IMAGES + "NUMBER", "Number Tool", tool));
 		
 		tool = new UndoableTool(new ScribbleTool(this));
 		palette.add(createToolButton(IMAGES + "SCRIBBL", "Scribble Tool", tool));
 		
+		//tool = new CreationTool(this, new DashedLine());
+		//palette.add(createToolButton(IMAGES + "LINE", "Line Tool", tool));
+
 		JButton graphChoose = new JButton("G");
 		graphChoose.addActionListener(new ActionListener() {
 			
@@ -88,18 +97,29 @@ public class MathNoteEditorGUI extends DrawApplication {
 			}
 		});
 		palette.add(graphChoose);
+		
+		JButton symbolChoose = new JButton("S");
+		symbolChoose.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				NewSymbolChooser();
+			}
+		});
+		palette.add(symbolChoose);
 	}
 	
-	/*Stop that annoying tool done message*/
-	@Override
-	public void toolDone() {
-		
-	}
 	
 	public void NewGraphChooser() {
 		JDialog graphchooser = new GraphChooser(this);
 		graphchooser.setLocation(this.getLocation().x + this.getSize().width, this.getLocation().y);
 		graphchooser.setVisible(true);
+	}
+	
+	public void NewSymbolChooser() {
+		JDialog symbolChooser = new SymbolChooser(this);
+		symbolChooser.setLocation(this.getLocation().x + this.getSize().width, this.getLocation().y);
+		symbolChooser.setVisible(true);
 	}
 	
 	public TriangleFigure makeTriangle() {
@@ -120,9 +140,17 @@ public class MathNoteEditorGUI extends DrawApplication {
 		return r;
 	}
 	
+	@Override
+	protected void createMenus(JMenuBar mb) {
+		addMenuIfPossible(mb, createFileMenu());
+		addMenuIfPossible(mb, createEditMenu());
+	}
+	
 	public static void main(String[] args) {
 		DrawApplication window = new MathNoteEditorGUI();
 		window.open();
 		window.resize(1200, 700);
+		window.promptNew();
+		//window.get
 	}
 }

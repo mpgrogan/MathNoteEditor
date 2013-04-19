@@ -20,7 +20,6 @@ public class GraphChooser extends JDialog {
 	
 	private MathNoteEditorGUI gui;
 	private JButton sgraph = new JButton("Simple");
-	private JButton dgraph = new JButton("Dotted");
 	private JButton fourgraph = new JButton("4 Quadrant");
 	private JButton tgraph = new JButton("ticked");
 	private JButton fourtgraph = new JButton("4 Q ticked");
@@ -33,7 +32,7 @@ public class GraphChooser extends JDialog {
 		panel.setSize(300, 300);
 		this.add(panel);
 		
-		List<JButton> list = Arrays.asList(sgraph, dgraph, fourgraph, tgraph, fourtgraph);
+		List<JButton> list = Arrays.asList(sgraph, fourgraph, tgraph, fourtgraph);
 		 
 		for (JButton b: list) {
 			panel.add(b);
@@ -61,14 +60,19 @@ public class GraphChooser extends JDialog {
 				gui.setTool(t, "Simple Graph");
 				kill();
 				break;
-			case "ticked": case "4 Q ticked":
-				TickedGraphDialog tgd = new TickedGraphDialog(gui);
-				tgd.setVisible(true);
-				System.out.println("selected");
+			case "ticked":
+				t = new CreationTool(gui, new TickedGraph());
+				gui.setTool(t, "TickedGraph");
+				kill();
 				break;
-			default: break;
+			case "4 Q ticked":
+				t = new CreationTool(gui, new TickedFourQuad());
+				gui.setTool(t, "TickedFourGraph");
+				kill();
+				break;
+				
+				default: break;
 			}
 		}
 	}
-
 }

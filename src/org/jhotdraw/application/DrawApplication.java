@@ -753,6 +753,7 @@ public	class DrawApplication
 	protected void setView(DrawingView newView) {
 		DrawingView oldView = fView;
 		fView = newView;
+		fView.setBackground(Color.white);
 		fireViewSelectionChangedEvent(oldView, view());
 	}
 
@@ -765,7 +766,7 @@ public	class DrawApplication
 	 * @see DrawingEditor
 	 */
 	public void toolDone() {
-		System.out.println("ToolDone");
+	//	System.out.println("ToolDone");
 		if (fDefaultToolButton != null) {
 			setTool(fDefaultToolButton.tool(), fDefaultToolButton.name());
 			setSelected(fDefaultToolButton);
