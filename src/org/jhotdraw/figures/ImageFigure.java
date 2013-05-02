@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -59,16 +59,19 @@ public  class ImageFigure
 
 	public HandleEnumeration handles() {
 		List handles = CollectionsFactory.current().createList();
-		BoxHandleKit.addHandles(this, handles);
+		//BoxHandleKit.addHandles(this, handles);
 		return new HandleEnumerator(handles);
 	}
 
 	public Rectangle displayBox() {
+		if (fImage == null) {
+			fImage = Iconkit.instance().getImage(fFileName);
+		}
 		return new Rectangle(
-			fDisplayBox.x,
-			fDisplayBox.y,
-			fDisplayBox.width,
-			fDisplayBox.height);
+			(fDisplayBox.x - (fImage.getWidth(this)/2))+20,
+			(fDisplayBox.y - (fImage.getHeight(this)/2)),
+			fImage.getWidth(this)-40,
+			fImage.getHeight(this));
 	}
 
 	protected void basicMoveBy(int x, int y) {
@@ -80,7 +83,7 @@ public  class ImageFigure
 			fImage = Iconkit.instance().getImage(fFileName);
 		}
 		if (fImage != null) {
-			g.drawImage(fImage, fDisplayBox.x, fDisplayBox.y, fDisplayBox.width, fDisplayBox.height, this);
+			g.drawImage(fImage, fDisplayBox.x - (fImage.getWidth(this)/2), fDisplayBox.y - (fImage.getHeight(this)/2), fImage.getWidth(this), fImage.getHeight(this), this);
 		}
 		else {
 			drawGhost(g);

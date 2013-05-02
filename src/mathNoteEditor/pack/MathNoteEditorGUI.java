@@ -27,6 +27,7 @@ import org.jhotdraw.figures.AbstractLineDecoration;
 import org.jhotdraw.figures.ArrowTip;
 import org.jhotdraw.figures.ConnectedTextTool;
 import org.jhotdraw.figures.EllipseFigure;
+import org.jhotdraw.figures.ImageFigure;
 import org.jhotdraw.figures.LineFigure;
 import org.jhotdraw.figures.NumberTextFigure;
 import org.jhotdraw.figures.PolyLineFigure;
@@ -79,12 +80,12 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		Tool tool = new TextTool(this, new Text());
 		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
 		
-		tool = new TextTool(this, new Number());
+		tool = new TextTool(this, makeNumber());
 		palette.add(createToolButton(IMAGES + "NUMBER", "Number Tool", tool));
 		
 		tool = new UndoableTool(new ScribbleTool(this));
 		palette.add(createToolButton(IMAGES + "SCRIBBL", "Scribble Tool", tool));
-		
+				
 		//tool = new CreationTool(this, new DashedLine());
 		//palette.add(createToolButton(IMAGES + "LINE", "Line Tool", tool));
 
@@ -138,6 +139,12 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		RectangleFigure r = new RectangleFigure();
 		r.setAttribute(FigureAttributeConstant.FILL_COLOR, DEFAULT_SHAPE_COLOR);
 		return r;
+	}
+	
+	public static NumberTextFigure makeNumber() {		
+		NumberTextFigure.setCurrentFontSize(20);
+		NumberTextFigure n = new NumberTextFigure();
+		return n;
 	}
 	
 	@Override

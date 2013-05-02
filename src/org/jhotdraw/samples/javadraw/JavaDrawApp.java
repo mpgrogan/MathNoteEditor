@@ -132,6 +132,9 @@ public  class JavaDrawApp extends MDI_DrawApplication {
 		tool = new TextAreaTool(this, new TextAreaFigure());
 		palette.add(createToolButton(IMAGES + "TEXTAREA", "TextArea Tool", tool));
 
+		tool = new UndoableTool(new CreationTool(this, new ImageFigure()));
+		palette.add(createToolButton(IMAGES+"", "", tool));
+		
 		GraphicalCompositeFigure fig = new GraphicalCompositeFigure();
 		fig.setLayouter(new SimpleLayouter(fig));
 		tool = new CreationTool(this, fig);
