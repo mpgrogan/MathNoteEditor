@@ -75,6 +75,17 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		Tool rectTool = new CreationTool(this, makeRectangle());
 		Tool lineTool = new CreationTool(this, new LineFigure());
 		
+		JButton fileDir = new JButton("F");
+		fileDir.setBackground(Color.lightGray);
+		fileDir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OpenFileDir();
+			}
+		});
+		palette.add(fileDir);
+		
 		palette.add(createToolButton(IMAGES + "TRIANGLE", "Triangle Tool", triangleTool));
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", ellipseTool));
 		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", rectTool));
@@ -113,16 +124,6 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 			}
 		});
 		palette.add(symbolChoose);
-		
-		JButton fileDir = new JButton("F");
-		fileDir.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				OpenFileDir();
-			}
-		});
-		palette.add(fileDir);
 	}
 	
 	public void OpenFileDir() {
