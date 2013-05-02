@@ -59,7 +59,7 @@ public  class ImageFigure
 
 	public HandleEnumeration handles() {
 		List handles = CollectionsFactory.current().createList();
-		//BoxHandleKit.addHandles(this, handles);
+		BoxHandleKit.addHandles(this, handles);
 		return new HandleEnumerator(handles);
 	}
 
@@ -68,9 +68,9 @@ public  class ImageFigure
 			fImage = Iconkit.instance().getImage(fFileName);
 		}
 		return new Rectangle(
-			(fDisplayBox.x - (fImage.getWidth(this)/2))+20,
+			(fDisplayBox.x - (fImage.getWidth(this)/2))+30,
 			(fDisplayBox.y - (fImage.getHeight(this)/2)),
-			fImage.getWidth(this)-40,
+			fImage.getWidth(this)-60,
 			fImage.getHeight(this));
 	}
 

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -23,7 +23,7 @@ public  class LineFigure extends PolyLineFigure {
 	/*
 	 * Serialization support.
 	 */
-	private static final long serialVersionUID = 511503575249212371L;
+	private static final long serialVersionUIDLineFigure = 511503575249212371L;
 	private int lineFigureSerializedDataVersion = 1;
 
 	/**

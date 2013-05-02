@@ -20,6 +20,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import org.jhotdraw.application.DrawApplication;
+import org.jhotdraw.contrib.DiamondFigure;
 import org.jhotdraw.contrib.MDI_DrawApplication;
 import org.jhotdraw.contrib.TextAreaFigure;
 import org.jhotdraw.contrib.TriangleFigure;
@@ -73,6 +74,7 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		Tool triangleTool = new CreationTool(this, makeTriangle());
 		Tool ellipseTool = new CreationTool(this, makeEllipse());
 		Tool rectTool = new CreationTool(this, makeRectangle());
+		Tool diamondTool = new CreationTool(this, makeDiamond());
 		Tool lineTool = new CreationTool(this, new LineFigure());
 		
 		JButton fileDir = new JButton("F");
@@ -89,9 +91,13 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		palette.add(createToolButton(IMAGES + "TRIANGLE", "Triangle Tool", triangleTool));
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", ellipseTool));
 		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", rectTool));
+		palette.add(createToolButton(IMAGES + "DIAMOND", "Diamond Tool", diamondTool));
 		palette.add(createToolButton(IMAGES + "LINE", "Line Tool", lineTool));
 		
-		Tool tool = new TextTool(this, new Text());
+		Tool tool = new CreationTool(this, makeArrow());
+		palette.add(createToolButton(IMAGES + "CONN", "Arrow Tool", tool));
+		
+	    tool = new TextTool(this, new Text());
 		palette.add(createToolButton(IMAGES + "TEXT", "Text Tool", tool));
 		
 		tool = new TextTool(this, makeNumber());
@@ -102,7 +108,7 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 				
 		//tool = new CreationTool(this, new DashedLine());
 		//palette.add(createToolButton(IMAGES + "LINE", "Line Tool", tool));
-
+		
 		JButton graphChoose = new JButton("G");
 		graphChoose.setBackground(Color.lightGray);
 		graphChoose.addActionListener(new ActionListener() {
@@ -123,7 +129,7 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 				NewSymbolChooser();
 			}
 		});
-		palette.add(symbolChoose);
+		palette.add(symbolChoose);		
 	}
 	
 	public void OpenFileDir() {
@@ -168,6 +174,18 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		return r;
 	}
 	
+	public DiamondFigure makeDiamond() {
+		DiamondFigure d = new DiamondFigure();
+		d.setAttribute(FigureAttributeConstant.FILL_COLOR, DEFAULT_SHAPE_COLOR);
+		return d;
+	}
+	
+	public LineFigure makeArrow() {
+		LineFigure l = new LineFigure();
+		l.setEndDecoration(new ArrowTip(0.60, 12, 8));
+		return l;
+	}
+	
 	public static NumberTextFigure makeNumber() {		
 		NumberTextFigure.setCurrentFontSize(20);
 		NumberTextFigure n = new NumberTextFigure();
@@ -177,7 +195,7 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 	@Override
 	protected void createMenus(JMenuBar mb) {
 		addMenuIfPossible(mb, createFileMenu());
-		addMenuIfPossible(mb, createEditMenu());
+		//addMenuIfPossible(mb, createEditMenu());
 	}
 	
 	public static void main(String[] args) {

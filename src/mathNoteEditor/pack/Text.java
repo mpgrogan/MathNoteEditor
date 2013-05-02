@@ -10,9 +10,13 @@ import java.awt.event.KeyListener;
 import javax.swing.RepaintManager;
 
 import org.jhotdraw.figures.TextFigure;
+import org.jhotdraw.figures.TextTool;
 import org.jhotdraw.framework.FigureAttributeConstant;
 
 public class Text extends TextFigure {
+	
+	 private MathNoteEditorGUI gui;
+	
 	@Override
 	public int overlayColumns() {
 		int length = getText().length();
@@ -21,5 +25,5 @@ public class Text extends TextFigure {
 			columns = getText().length() + 3;
 		}
 		return columns;
-	}	
+	}
 }

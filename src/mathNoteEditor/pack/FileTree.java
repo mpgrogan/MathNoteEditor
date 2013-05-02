@@ -116,9 +116,9 @@ import org.jhotdraw.util.StorageFormat;
 	    String name = tp.getLastPathComponent().toString();
 	    file = path + "/" + name;
 	    File realFile = new File(file);
-//	    StorageFormat foundFormat;
-//	    foundFormat = gui.getStorageFormatManager().findStorageFormat(realFile);
-//	    gui.loadDrawing(foundFormat, file);
+	    StorageFormat foundFormat;
+	    foundFormat = gui.getStorageFormatManager().findStorageFormat(realFile);
+	    gui.loadDrawing(foundFormat, file);
 	  }
 	  
 	

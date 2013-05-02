@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -25,92 +27,111 @@ import org.jhotdraw.util.UndoableTool;
 
 public class SymbolChooser extends JDialog {
 
-	private JButton s1, s2, s3, s4, s5, s6, s7, s8;
+	private JButton[] sym;
 	private MathNoteEditorGUI gui;
-	private String s = "/resources/";
-	private String[] sArray = {s+"sqrt.png", s+"lt.png", s+"gt.png", 
-			s+"ltet.png", s+"gtet.png", s+"integral.png",
-			s+"prime.png", s+"porm.png"};
+	private String filePath = "/resources/";
+	private String[] sArray = {
+			"sqrt.png", "lt.png", "gt.png", "ltet.png", "gtet.png", 
+			"integral.png", "sigma.png", "porm.png", "summation.png", "delta.png", 
+			"null.png", "contains.png", "ncontains.png", "union.png", "intersection.png",
+			"nset.png", "qset.png", "realset.png", "pset.png", "zset.png",
+			"partial.png", "sintegral.png", "mu.png", "and.png", "or.png", 
+			"inf.png", "dintergral.png", "tintegral.png", "bigpi.png", "be.png"
+			};
 
 	public SymbolChooser(MathNoteEditorGUI gui) {
 		this.gui = gui;
-		this.setSize(300, 300);
+		this.setSize(300, 400);
 		JTabbedPane tabPane = new JTabbedPane();
 		JPanel panel1 = new JPanel();
 		JPanel panel2 = new JPanel();
 		JPanel panel3 = new JPanel();
-		panel1.setLayout(new GridLayout(4, 2));
-		panel1.setSize(300, 300);
+		panel1.setLayout(new GridLayout(5, 2));
+		panel2.setLayout(new GridLayout(5, 2));
+		panel3.setLayout(new GridLayout(5, 2));
 		this.add(tabPane);
 		tabPane.addTab("Common", panel1);
-		tabPane.addTab("Logic", panel2);
+		tabPane.addTab("Sets", panel2);
 		tabPane.addTab("Other", panel3);
 
-		JButton[] bArray = {s1, s2, s3, s4, s5, s6, s7, s8};
+		for (int i=0; i<sArray.length; i++) {
+			sArray[i] = filePath + sArray[i];
+		}
+		sym = new JButton[30];
 
-		for (int i=0; i<bArray.length; i++) {
+		for (int i=0; i<10; i++) {
+			sym[i] = new JButton();
 			Container c = new Container();
 			c.setLayout(new FlowLayout());
-			bArray[i] = new JButton();
-			bArray[i].addActionListener(new Listener());
-			bArray[i].setActionCommand(""+i);
+			sym[i].addActionListener(new Listener());
+			sym[i].setActionCommand(""+i);
 
 			Image img = null;
 			try {
-//				System.out.println(sArray[i]);
+				//				System.out.println(sArray[i]);
 				img = ImageIO.read(getClass().getResource(sArray[i]));
 			} catch (Exception e) {}
-			bArray[i].setIcon(new ImageIcon(img));
-			bArray[i].setActionCommand("" + i);
-			c.add(bArray[i]);
+			if (img != null) {
+				sym[i].setIcon(new ImageIcon(img));
+			}
+			c.add(sym[i]);
 			panel1.add(c);
 		}
+
+		for (int i=10; i<20; i++) {
+			sym[i] = new JButton();
+			Container c = new Container();
+			c.setLayout(new FlowLayout());
+			sym[i].addActionListener(new Listener());
+			sym[i].setActionCommand(""+i);
+
+			Image img = null;
+			try {
+				//				System.out.println(sArray[i]);
+				img = ImageIO.read(getClass().getResource(sArray[i]));
+			} catch (Exception e) {}
+			if (img != null) {
+				sym[i].setIcon(new ImageIcon(img));
+			}
+			c.add(sym[i]);
+			panel2.add(c);	
+		}
+
+		for (int i=20; i<30; i++) {
+			sym[i] = new JButton();
+			Container c = new Container();
+			c.setLayout(new FlowLayout());
+			sym[i].addActionListener(new Listener());
+			sym[i].setActionCommand(""+i);
+
+			Image img = null;
+			try {
+				//				System.out.println(sArray[i]);
+				img = ImageIO.read(getClass().getResource(sArray[i]));
+			} catch (Exception e) {}
+			if (img != null) {
+				sym[i].setIcon(new ImageIcon(img));
+			}
+			c.add(sym[i]);
+			panel3.add(c);	
+			}
 	}
-	
+
 	private class Listener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			Image img = null;
 			int bCommand = Integer.parseInt(e.getActionCommand());
-			String imgStr = null;
-			
-			switch(bCommand) {
-			case 0:
-				imgStr = sArray[0];
-				break;
-			case 1:
-				imgStr = sArray[1];
-				break;
-			case 2:
-				imgStr = sArray[2];
-				break;
-			case 3:
-				imgStr = sArray[3];
-				break;
-			case 4:
-				imgStr = sArray[4];
-				break;
-			case 5:
-				imgStr = sArray[5];
-				break;
-			case 6:
-				imgStr = sArray[6];
-				break;
-			case 7:
-				imgStr = sArray[7];
-				break;
-			}
-			
+			String imgStr = sArray[bCommand];
+
 			try {
 				img = ImageIO.read(getClass().getResource(imgStr));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
- 	
-			gui.setTool(new UndoableTool(
+			} catch (IOException e1) {}
+
+			if (img != null)
+				gui.setTool(new UndoableTool(
 					new CreationTool(gui, new ImageFigure(img, imgStr, 
 							new Point(0,0)))), "symbol");	
 		}
