@@ -1037,7 +1037,7 @@ public	class DrawApplication
 	/**
 	 * Load a Drawing from a file
 	 */
-	protected void loadDrawing(StorageFormat restoreFormat, String file) {
+	public void loadDrawing(StorageFormat restoreFormat, String file) {
 		try {
 			Drawing restoredDrawing = restoreFormat.restore(file);
 			if (restoredDrawing != null) {

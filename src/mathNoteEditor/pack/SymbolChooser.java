@@ -42,9 +42,9 @@ public class SymbolChooser extends JDialog {
 		panel1.setLayout(new GridLayout(4, 2));
 		panel1.setSize(300, 300);
 		this.add(tabPane);
-		tabPane.add(panel1);
-		tabPane.add(panel2);
-		tabPane.add(panel3);
+		tabPane.addTab("Common", panel1);
+		tabPane.addTab("Logic", panel2);
+		tabPane.addTab("Other", panel3);
 
 		JButton[] bArray = {s1, s2, s3, s4, s5, s6, s7, s8};
 

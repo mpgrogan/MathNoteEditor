@@ -2,6 +2,7 @@ package mathNoteEditor.pack;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Window;
@@ -10,11 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import org.jhotdraw.application.DrawApplication;
 import org.jhotdraw.contrib.MDI_DrawApplication;
@@ -90,6 +93,7 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		//palette.add(createToolButton(IMAGES + "LINE", "Line Tool", tool));
 
 		JButton graphChoose = new JButton("G");
+		graphChoose.setBackground(Color.lightGray);
 		graphChoose.addActionListener(new ActionListener() {
 			
 			@Override
@@ -100,6 +104,7 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 		palette.add(graphChoose);
 		
 		JButton symbolChoose = new JButton("S");
+		symbolChoose.setBackground(Color.lightGray);
 		symbolChoose.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,8 +113,29 @@ public class MathNoteEditorGUI extends MDI_DrawApplication {
 			}
 		});
 		palette.add(symbolChoose);
+		
+		JButton fileDir = new JButton("F");
+		fileDir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OpenFileDir();
+			}
+		});
+		palette.add(fileDir);
 	}
 	
+	public void OpenFileDir() {
+		  JFrame frame = new JFrame("FileTree");
+		    frame.setForeground(Color.black);
+		    frame.setBackground(Color.lightGray);
+		    Container cp = frame.getContentPane();
+		    String dirName = (String) JOptionPane.showInputDialog(null);
+		    cp.add(new FileTree(new File(dirName), this));
+		    frame.pack();
+		    frame.setVisible(true);
+		    //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
 	
 	public void NewGraphChooser() {
 		JDialog graphchooser = new GraphChooser(this);
